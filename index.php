@@ -85,7 +85,7 @@ $conn->close();
             </div>
 
             <div class="txt2">
-                <h4>Don’t have an account yet? <a href="./register.php"> Register</a></h4>
+                <h4>Don’t have an account yet? <a href="./changeInfo.php"> Register</a></h4>
             </div>
 
         </div>

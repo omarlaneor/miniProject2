@@ -4,18 +4,34 @@ session_start();
 $servidor = 'localhost';
 $usuario = 'root';
 $contraseña = '';
-$baseDatos =  "login_db";
+$baseDatos = "login_db";
 
 $conectar = mysqli_connect($servidor, $usuario, $contraseña, $baseDatos);
 
-$userEmail = $_SESSION["startedSec"];
-$selectQuery = "SELECT * FROM personal_info WHERE email = '$userEmail'";
-$selectResult = $conectar->query($selectQuery);
+if (isset($_SESSION["startedSec"])) {
+    $userEmail = $_SESSION["startedSec"];
 
-if ($selectResult->num_rows > 0) {
-    $userInfo = $selectResult->fetch_assoc();
+    $checkTableQuery = "SHOW TABLES LIKE 'personal_info'";
+    $tableResult = $conectar->query($checkTableQuery);
+
+    if ($tableResult->num_rows > 0) {
+
+        $selectQuery = "SELECT * FROM personal_info WHERE email = '$userEmail'";
+        $selectResult = $conectar->query($selectQuery);
+
+        if ($selectResult->num_rows > 0) {
+            $userInfo = $selectResult->fetch_assoc();
+        }
+    } else {
+        echo "'personal_info' doen't exist in database.";
+    }
+} else {
+    echo "'startedSec' not defined.";
 }
+
+mysqli_close($conectar);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

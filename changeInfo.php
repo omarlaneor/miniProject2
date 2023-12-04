@@ -4,7 +4,7 @@ session_start();
 if (isset($_SESSION["startedSec"])) {
     $user = $_SESSION["startedSec"];
 } else {
-    header("location: index.php");
+    header("location: changeInfo.php");
 }
 
 

@@ -49,7 +49,7 @@
             </div>
 
             <div class="txt1">
-                <h4>Don’t have an account yet? <a href="/changeInfo.php"> Register</a></h4>
+                <h4>Don’t have an account yet? <a href="./changeInfo.php"> Register</a></h4>
             </div>
 
         </div>
