@@ -2,7 +2,7 @@
 
 session_start();
 
-$userId = $_SESSION["startedSec"]["id"];
+$userId = $_SESSION["seccionIni"]["id"];
 
 
 include "conn.php";

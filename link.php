@@ -16,16 +16,19 @@ if (mysqli_query($conectar, $sqlInsert)) {
     $phone = $_POST['phone'];
 
     $sqlPersonalInfo = "INSERT INTO personal_info (`name`, `bio`, `phone`, `email`, `password`) VALUES ('$name', '$bio', '$phone', '$email', '$PasswordEncriptado')";
-    mysqli_query($conectar, $sqlPersonalInfo);
 
-    $resultSelect = mysqli_query($conectar, $sqlSelect);
-    $data = mysqli_fetch_assoc($resultSelect);
+    if (mysqli_query($conectar, $sqlPersonalInfo)) {
+        $resultSelect = mysqli_query($conectar, $sqlSelect);
+        $data = mysqli_fetch_assoc($resultSelect);
 
-    session_start();
-    $_SESSION["startedSec"] = $data;
+        session_start();
+        $_SESSION["startedSec"] = $data;
 
-    header("Location: ./personalInfo.php");
-    exit();
+        header("Location: ./personalInfo.php");
+        exit();
+    } else {
+        echo "Error inserting into personal_info: " . mysqli_error($conectar);
+    }
 } else {
     echo "Connection error: " . mysqli_error($conectar);
 }

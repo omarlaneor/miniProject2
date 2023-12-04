@@ -3,27 +3,27 @@ include "conn.php";
 
 $servidor = 'localhost';
 $usuario = 'root';
-$contraseña = '';
-$baseDatos =  "login_db";
+$pass = '';
+$baseDatos = "login_db";
 
-$conn = new mysqli($servidor, $usuario, $contraseña, $baseDatos);
+$conn = new mysqli($servidor, $usuario, $pass, $baseDatos);
 
 if ($conn->connect_error) {
-    die("Error de conexión:" . $conn->connect_error);
+    die("Conection error:" . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = isset($_POST["email"]) ? $_POST["email"] : "";
-    $contraseña = isset($_POST["contraseña"]) ? $_POST["contraseña"] : "";
+    $pass = isset($_POST["contraseña"]) ? $_POST["contraseña"] : "";
 
     $consulta = "SELECT * FROM usuarios WHERE  email = '$email' AND contraseña = '$contraseña'";
     $resultado = $conn->query($consulta);
 
     if ($resultado->num_rows > 0) {
-        echo "Credenciales Correctas";
+        echo "Correct Credentials";
     } else {
-        echo "Credenciales incorrectas";
+        echo "Incorrect Credentials";
     }
 }
 

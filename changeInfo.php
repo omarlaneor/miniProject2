@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (isset($_SESSION["startedSec"])) {
-    $user = $_SESSION["startedSec"];
+if (isset($_SESSION["seccionIni"])) {
+    $user = $_SESSION["seccionIni"];
 } else {
-    header("location: changeInfo.php");
+    header("location: index.php");
 }
 
 
@@ -67,7 +67,6 @@ if (isset($_SESSION["startedSec"])) {
 
                 <div class="photoContainer">
                     <label for="photo">CHANGE PHOTO</label>
-                    <input type="file" name="photo" id="photo">
                 </div>
 
                 <div class="divContainer">
@@ -76,9 +75,9 @@ if (isset($_SESSION["startedSec"])) {
                         <input type="text" name="name" id="name" placeholder="Enter your name...">
                     </div>
 
-                    <div class="boxContainer">
+                    <div class="boxContainerBio">
                         <label for="Bio">Bio</label>
-                        <input type="text" name="bio" id="bio" placeholder="Enter your bio...">
+                        <input class="text2" type="text" name="bio" id="bio" placeholder="Enter your bio...">
                     </div>
 
                     <div class="boxContainer">
@@ -98,8 +97,9 @@ if (isset($_SESSION["startedSec"])) {
 
 
 
-
-                    <a href="./index.php"><button type="submit">Save</button></a>
+                    <div class="button-container">
+                        <a href="./index.php"><button type="submit">Save</button></a>
+                    </div>
                 </div>
             </form>
         </div>

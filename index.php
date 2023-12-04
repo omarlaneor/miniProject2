@@ -3,10 +3,10 @@ include "conn.php";
 
 $servidor = 'localhost';
 $usuario = 'root';
-$contraseña = '';
+$pass = '';
 $baseDatos =  "login_db";
 
-$conn = new mysqli($servidor, $usuario, $contraseña, $baseDatos);
+$conn = new mysqli($servidor, $usuario, $pass, $baseDatos);
 
 if ($conn->connect_error) {
     die("Conection error:" . $conn->connect_error);
@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // datos del formulario
     $email = isset($_POST["email"]) ? $_POST["email"] : "";
-    $contraseña = isset($_POST["contraseña"]) ? $_POST["contraseña"] : "";
+    $pass = isset($_POST["contraseña"]) ? $_POST["contraseña"] : "";
 
     $consulta = "SELECT * FROM usuarios WHERE  email = '$email' AND contraseña = '$contraseña'";
     $resultado = $conn->query($consulta);
