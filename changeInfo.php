@@ -1,11 +1,5 @@
 <?php
-session_start();
 
-if (isset($_SESSION["seccionIni"])) {
-    $user = $_SESSION["seccionIni"];
-} else {
-    header("location: index.php");
-}
 
 
 ?>
@@ -26,8 +20,8 @@ if (isset($_SESSION["seccionIni"])) {
         <div class="header">
             <img src="./assets/devchallenges.svg" alt="Logo" class="logo">
             <div class="user-details">
-                <img src="./assets/dark_blue.jpg" alt="User Img">
-                <span class="user-name">OmarLane</span>
+                <img src="#" alt="User Img">
+                <span class="user-name">Username</span>
                 <div class="dropdown">
                     <span class="arrow">&#9660;</span>
                     <div class="dropdown-content">
@@ -58,7 +52,7 @@ if (isset($_SESSION["seccionIni"])) {
 
         <div class="content">
 
-            <form action="./link.php" method="post" enctype="multipart/form-data">
+            <form action="linkAdd.php" method="POST">
 
                 <div class="title1">
                     <h2>Change Info</h2>
@@ -66,7 +60,7 @@ if (isset($_SESSION["seccionIni"])) {
                 </div>
 
                 <div class="photoContainer">
-                    <label for="photo">CHANGE PHOTO</label>
+                    <label for="photo" name="photo">CHANGE PHOTO</label>
                 </div>
 
                 <div class="divContainer">
@@ -98,11 +92,12 @@ if (isset($_SESSION["seccionIni"])) {
 
 
                     <div class="button-container">
-                        <a href="./index.php"><button type="submit">Save</button></a>
+                        <a href="personalInfo.php"><button type="submit">Save</button></a>
                     </div>
                 </div>
             </form>
         </div>
+    </div>
 </body>
 
 </html>

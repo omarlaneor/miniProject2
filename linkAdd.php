@@ -1,32 +1,25 @@
 <?php
+include('/xampp/htdocs/miniProject2/miniProject2/conn.php');
 
-session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$userId = $_SESSION["seccionIni"]["id"];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    // $photo = $_FILES['photo'];
+    $name = $_POST['name'];
+    $bio = $_POST['bio'];
+    $phone = $_POST['phone'];
 
+    $sql = "INSERT INTO usuarios (email, password, name, bio, phone) VALUES ('$email', '$password', '$name', '$bio', '$phone')";
 
-include "conn.php";
+    $conn = conexion();
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$photo = $_FILES['photo'];
-$name = $_POST['name'];
-$bio = $_POST['bio'];
-$phone = $_POST['phone'];
+    if (mysqli_query($conn, $sql)) {
+        header("Location: personalInfo.php");
+        exit();
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 
-
-$PasswordEncriptado = password_hash($password, PASSWORD_DEFAULT);
-
-$sql = "INSERT INTO usuarios (email, contraseña, name, bio, phone) VALUES (?, ?, ?, ?, ?);";
-
-$stmt = $conectar->prepare($sql);
-
-$stmt->bind_param("asdfg", $email, $PasswordEncriptado, $name, $bio, $phone);
-
-$stmt->execute();
-
-$stmt->close();
-
-header("Location: ./personalInfo.php");
-
-$conectar->close();
+    mysqli_close($conn);
+}

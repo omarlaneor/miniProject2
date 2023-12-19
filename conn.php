@@ -1,16 +1,21 @@
+
 <?php
 
-$servidor = 'localhost';
-$usuario = 'root';
-$pass = '';
-$baseDatos =  "login_db";
+function conexion()
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "login_db";
 
-try {
-    $conectar = mysqli_connect($servidor, $usuario, $pass, $baseDatos);
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    if (!$conectar) {
-        throw new Exception('Conection error: ' . mysqli_connect_error());
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
     }
-} catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
+
+    return $conn;
 }
+?>

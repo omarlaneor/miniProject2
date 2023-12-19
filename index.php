@@ -1,12 +1,7 @@
 <?php
-include "conn.php";
+include('conn.php');
 
-$servidor = 'localhost';
-$usuario = 'root';
-$pass = '';
-$baseDatos =  "login_db";
-
-$conn = new mysqli($servidor, $usuario, $pass, $baseDatos);
+$conn = conexion();
 
 if ($conn->connect_error) {
     die("Conection error:" . $conn->connect_error);
@@ -85,7 +80,7 @@ $conn->close();
             </div>
 
             <div class="txt2">
-                <h4>Don’t have an account yet? <a href="./changeInfo.php"> Register</a></h4>
+                <h4>Don’t have an account yet? <a href="/changeInfo.php"> Register</a></h4>
             </div>
 
         </div>

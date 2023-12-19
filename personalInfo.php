@@ -1,35 +1,11 @@
 <?php
-session_start();
 
-$servidor = 'localhost';
-$usuario = 'root';
-$contraseña = '';
-$baseDatos = "login_db";
+include('/xampp/htdocs/miniProject2/miniProject2/conn.php');
+$conn = conexion();
 
-$conectar = mysqli_connect($servidor, $usuario, $contraseña, $baseDatos);
+$sql = "SELECT * FROM usuarios";
+$query = mysqli_query($conn, $sql);
 
-if (isset($_SESSION["startedSec"])) {
-    $userEmail = $_SESSION["startedSec"];
-
-    $checkTableQuery = "SHOW TABLES LIKE 'personal_info'";
-    $tableResult = $conectar->query($checkTableQuery);
-
-    if ($tableResult->num_rows > 0) {
-
-        $selectQuery = "SELECT * FROM personal_info WHERE email = '$userEmail'";
-        $selectResult = $conectar->query($selectQuery);
-
-        if ($selectResult->num_rows > 0) {
-            $userInfo = $selectResult->fetch_assoc();
-        }
-    } else {
-        echo "'personal_info' doen't exist in database.";
-    }
-} else {
-    echo "'startedSec' not defined.";
-}
-
-mysqli_close($conectar);
 ?>
 
 
@@ -50,12 +26,12 @@ mysqli_close($conectar);
     <div class="container">
         <div class="header">
             <div class="user-details">
-                <img src="./assets/dark_blue.jpg" alt="User Img">
-                <span class="user-name">OmarLane</span>
+                <img src="#" alt="User Img">
+                <span class="user-name">Username</span>
                 <div class="dropdown">
                     <span class="arrow">&#9660;</span>
                     <div class="dropdown-content">
-                        <a class="myProfile" href="./peronaslInfo.php">
+                        <a class="myProfile" href="/personalInfo.php">
                             <div class="profile">
                                 <img src="./assets/Profile.svg" alt="Profile Icon">My Profile
                             </div>
@@ -78,35 +54,37 @@ mysqli_close($conectar);
             <h1>Personal Info</h1>
             <h3>Basic info, like your name and photo</h3>
             <div class="info-table">
-                <div class="info-row1">
-                    <h2>Profile</h2>
-                    <p>Some info may be visible to other people</p>
-                    <a href="./changeInfo.php"><button type="submit">Edit</button></a>
-                </div>
-                <div class="info-row">
-                    <label for="photo">PHOTO</label>
-                    <img src="./assets/dark_blue.jpg" alt="User Img">
-                </div>
-                <div class="info-row">
-                    <label for="name">NAME</label>
-                    <div id="name"><?php echo isset($userInfo['name']) ? $userInfo['name'] : ''; ?></div>
-                </div>
-                <div class="info-row">
-                    <label for="bio">BIO</label>
-                    <div id="bio"><?php echo isset($userInfo['bio']) ? $userInfo['bio'] : ''; ?></div>
-                </div>
-                <div class="info-row">
-                    <label for="phone">PHONE</label>
-                    <div id="phone"><?php echo isset($userInfo['phone']) ? $userInfo['phone'] : ''; ?></div>
-                </div>
-                <div class="info-row">
-                    <label for="email">EMAIL</label>
-                    <div id="email"><?php echo isset($userInfo['email']) ? $userInfo['email'] : ''; ?></div>
-                </div>
-                <div class="info-row">
-                    <label for="password">PASSWORD</label>
-                    <div id="password"><?php echo isset($userInfo['password']) ? $userInfo['password'] : ''; ?></div>
-                </div>
+                <?php while ($row = mysqli_fetch_array($query)) : ?>
+                    <div class="info-row1">
+                        <h2>Profile</h2>
+                        <p>Some info may be visible to other people</p>
+                        <a href="/changeInfo.php"><button type="submit">Edit</button></a>
+                    </div>
+                    <div class="info-row">
+                        <label for="photo">PHOTO</label>
+                        <img src="#" alt="User Img">
+                    </div>
+                    <div class="info-row">
+                        <label for="name">NAME</label>
+                        <p><?= $row['name'] ?></p>
+                    </div>
+                    <div class="info-row-bio">
+                        <label for="bio">BIO</label>
+                        <p><?= $row['bio'] ?></p>
+                    </div>
+                    <div class="info-row">
+                        <label for="phone">PHONE</label>
+                        <p><?= $row['phone'] ?></p>
+                    </div>
+                    <div class="info-row">
+                        <label for="email">EMAIL</label>
+                        <p><?= $row['email'] ?></p>
+                    </div>
+                    <div class="info-row">
+                        <label for="password">PASSWORD</label>
+                        <p><?= $row['password'] ?></p>
+                    </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </div>
